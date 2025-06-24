@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resume Builder</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f72585, #7209b7);
+      color: #222;
+    }
+
+    h2 {
+      text-align: center;
+      padding: 20px;
+      color: #fff;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .form-container, .preview-container {
+      background: #fff;
+      flex: 1 1 400px;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
+    }
+
+    .form-container:hover, .preview-container:hover {
+      transform: scale(1.02);
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      color: #333;
+      font-weight: 600;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: 0.3s border ease;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #f72585;
+      outline: none;
+    }
+
+    .btn {
+      background: #f72585;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      margin-top: 15px;
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #d61e72;
+    }
+
+    .resume-preview {
+      border-left: 5px solid #7209b7;
+      padding-left: 20px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .resume-preview h3 {
+      color: #7209b7;
+      margin-bottom: 5px;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    ul li {
+      margin-bottom: 5px;
+      color: #333;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        flex-direction: column;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>🌟 Interactive Resume Builder</h2>
+  <div class="container">
+    <div class="form-container">
+      <label>Name</label>
+      <input type="text" id="name" oninput="updateResume()" />
+
+      <label>Email</label>
+      <input type="email" id="email" oninput="updateResume()" />
+
+      <label>Phone Number</label>
+      <input type="text" id="phone" oninput="updateResume()" />
+
+      <label>Profile Summary</label>
+      <textarea id="summary" rows="3" oninput="updateResume()"></textarea>
+
+      <label>Education</label>
+      <input type="text" id="education" placeholder="e.g., B.Tech - CSE, KDRT College" oninput="updateResume()" />
+
+      <label>Skills (comma separated)</label>
+      <input type="text" id="skills" oninput="updateResume()" />
+
+      <label>Experience</label>
+      <textarea id="experience" rows="3" oninput="updateResume()"></textarea>
+
+      <button class="btn" onclick="clearForm()">Clear Form</button>
+    </div>
+
+    <div class="preview-container">
+      <h3>Live Resume Preview</h3>
+      <div class="resume-preview" id="resume">
+        <p><strong>Name:</strong> <span id="r-name"></span></p>
+        <p><strong>Email:</strong> <span id="r-email"></span></p>
+        <p><strong>Phone:</strong> <span id="r-phone"></span></p>
+
+        <h3>Profile Summary</h3>
+        <p id="r-summary"></p>
+
+        <h3>Education</h3>
+        <p id="r-education"></p>
+
+        <h3>Skills</h3>
+        <ul id="r-skills"></ul>
+
+        <h3>Experience</h3>
+        <p id="r-experience"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function updateResume() {
+      document.getElementById("r-name").textContent = document.getElementById("name").value;
+      document.getElementById("r-email").textContent = document.getElementById("email").value;
+      document.getElementById("r-phone").textContent = document.getElementById("phone").value;
+      document.getElementById("r-summary").textContent = document.getElementById("summary").value;
+      document.getElementById("r-education").textContent = document.getElementById("education").value;
+
+      const skills = document.getElementById("skills").value.split(",");
+      const skillsList = document.getElementById("r-skills");
+      skillsList.innerHTML = "";
+      skills.forEach(skill => {
+        const li = document.createElement("li");
+        li.textContent = skill.trim();
+        skillsList.appendChild(li);
+      });
+
+      document.getElementById("r-experience").textContent = document.getElementById("experience").value;
+    }
+
+    function clearForm() {
+      document.querySelectorAll("input, textarea").forEach(el => el.value = "");
+      updateResume();
+    }
+  </script>
+</body>
+</html>
