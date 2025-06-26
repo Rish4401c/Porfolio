@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SmartPlant 2.0 – High Contrast</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: #0f2027; /* Deep dark background */
+      background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+      color: #f1f1f1;
+    }
+    header {
+      text-align: center;
+      padding: 2rem;
+      background: #1c1c1c;
+      color: #91ffcb;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+    main {
+      max-width: 720px;
+      margin: 2rem auto;
+      background: #242424;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    }
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      color: #c5e1a5;
+    }
+    select, input[type="range"] {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      background: #000;
+      color: #fff;
+      border: 1px solid #57eaa6;
+    }
+    button {
+      width: 100%;
+      padding: 0.9rem;
+      background: #00c9a7;
+      color: #1d1d1d;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #00ac8c;
+    }
+    #output {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: #101010;
+      border-left: 6px solid #00c9a7;
+      font-weight: bold;
+      color: #e0f7fa;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SmartPlant 2.0</h1>
+    <p>Futuristic AI-powered Irrigation Advisor</p>
+  </header>
+
+  <main>
+    <form id="advisorForm">
+      <label for="crop">🌾 Crop Type:</label>
+      <select id="crop">
+        <option>Wheat</option>
+        <option>Rice</option>
+        <option>Maize</option>
+      </select>
+
+      <label for="soil">🪨 Soil Type:</label>
+      <select id="soil">
+        <option>Loamy</option>
+        <option>Sandy</option>
+        <option>Clay</option>
+      </select>
+
+      <label for="weather">🌦 Weather:</label>
+      <select id="weather">
+        <option>Sunny</option>
+        <option>Cloudy</option>
+        <option>Rainy</option>
+      </select>
+
+      <label for="moisture">💧 Soil Moisture Sensor (%):</label>
+      <input type="range" id="moisture" min="0" max="100" value="50" />
+
+      <button type="submit">Get Smart Advice</button>
+    </form>
+
+    <div id="output"></div>
+  </main>
+
+  <footer>SmartPlant © 2025 | Design by Ritesh</footer>
+
+  <script>
+    document.getElementById("advisorForm").addEventListener("submit", function(e) 
+    {
+      e.preventDefault();
+      const crop = document.getElementById("crop").value;
+      const soil = document.getElementById("soil").value;
+      const weather = document.getElementById("weather").value;
+      const moisture = parseInt(document.getElementById("moisture").value);
+
+      let result = \`🌿 <b>Advice for ${crop}</b> in <b>${soil}</b> soil under <b>${weather}</b> conditions:<br><br>\`;
+
+      if (moisture < 30) {
+        result += "⚠️ Low moisture detected. Immediate irrigation needed.<br>";
+      } else if (moisture < 60) {
+        result += "💧 Moderate moisture. Maintain stable irrigation schedule.<br>";
+      } else {
+        result += "✅ Moisture optimal. Skip watering today.<br>";
+      }
+
+      if (crop === "Rice" && weather === "Rainy") {
+        result += "🌧 Rain supports rice—manual irrigation can be reduced.";
+      } else if (crop === "Maize" && soil === "Sandy") {
+        result += "🔁 Sandy soil drains fast—apply water twice a day.";
+      } else if (crop === "Wheat" && weather === "Sunny") {
+        result += "☀️ Hot weather—irrigate deeply every 4–5 days.";
+      } else {
+        result += "📋 Use general irrigation cycle every 5 days.";
+      }
+
+      document.getElementById("output").innerHTML = result;
+    });
+  </script>
+</body>
+</html>
